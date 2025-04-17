@@ -1,9 +1,9 @@
-_DOTINC="$(dirname "$(readlink -f "$0")")"
+_DOTINC="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
 set -ua
 
-echo "$_DOTINC"
-
 source "${_DOTINC}/aliases.sh"
+source "${_DOTINC}/common.sh"
 
 set +ua
 
