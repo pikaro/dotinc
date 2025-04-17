@@ -18,3 +18,9 @@ _fatal() {
     _log "[FATAL] $*"
     exit 1
 }
+
+_debug() {
+    if [[ "${DEBUG}" == "true" ]]; then
+        _log "[DEBUG] $*"
+    fi
+}

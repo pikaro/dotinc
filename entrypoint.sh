@@ -1,10 +1,24 @@
-_DOTINC="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+_SHELL="$(ps -p $$ -o comm=)"
+
+if [ "${_SHELL}" = "bash" ]; then
+    SOURCE="${BASH_SOURCE[0]}"
+elif [ "${_SHELL}" = "zsh" ]; then
+    SOURCE="${(%):-%x}"
+else
+    echo "Unsupported shell. Please use bash or zsh."
+    exit 1
+fi
+
+REAL_SOURCE="$(readlink -f "${SOURCE}")"
+DOTINC="$(dirname "${REAL_SOURCE}")"
 
 set -ua
 
-source "${_DOTINC}/aliases.sh"
-source "${_DOTINC}/common.sh"
+source "${DOTINC}/aliases.sh"
+source "${DOTINC}/common.sh"
 
 set +ua
 
-unset _DOTINC
+_debug "Loaded shell functions from ${DOTINC}"
+
+unset DOTINC
