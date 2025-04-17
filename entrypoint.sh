@@ -1,12 +1,11 @@
 _SHELL="$(ps -p $$ -o comm=)"
 
-if [ "${_SHELL}" = "bash" ]; then
+if [[ "${_SHELL}" == *"bash" ]]; then
     SOURCE="${BASH_SOURCE[0]}"
-elif [ "${_SHELL}" = "zsh" ]; then
+elif [[ "${_SHELL}" == *"zsh" ]]; then
     SOURCE="${(%):-%x}"
 else
-    echo "Unsupported shell. Please use bash or zsh."
-    exit 1
+    echo "Unsupported shell: ${_SHELL}. Please use bash or zsh."
 fi
 
 REAL_SOURCE="$(readlink -f "${SOURCE}")"
