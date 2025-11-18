@@ -9,3 +9,9 @@ done
 
 unset _al
 unset _function_exists
+
+hyperlink() {
+    local URL="$1"
+    local TEXT="${2:-${URL}}"
+    printf '\e]8;;%s\e\\%s\e]8;;\e\\' "$URL" "$TEXT"
+}
