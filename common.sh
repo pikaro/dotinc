@@ -1,5 +1,7 @@
+SCRIPT="$(basename "$0")"
+
 _log() {
-    stdbuf -o0 -e0 echo -e "[$(date +'%Y-%m-%d %H:%M:%S')] $*" >/dev/stderr
+    stdbuf -o0 -e0 echo -e "[$(date +'%Y-%m-%d %H:%M:%S')] [${SCRIPT}] $*" >/dev/stderr
 }
 
 _warn() {
