@@ -15,3 +15,17 @@ hyperlink() {
     local TEXT="${2:-${URL}}"
     printf '\e]8;;%s\e\\%s\e]8;;\e\\' "$URL" "$TEXT"
 }
+
+urlencode() {
+    local STRING="${1}"
+    local LENGTH="${#STRING}"
+    local ENCODED=""
+    for ((i = 0; i < LENGTH; i++)); do
+        local CHAR="${STRING:i:1}"
+        case "${CHAR}" in
+        [a-zA-Z0-9._~-]) ENCODED+="${CHAR}" ;;
+        *) ENCODED+=$(printf '%%%02X' "'${CHAR}") ;;
+        esac
+    done
+    echo "${ENCODED}"
+}
