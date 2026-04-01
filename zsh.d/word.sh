@@ -105,6 +105,12 @@ do
   zle -N "$widget" .edit.move-word
 done
 
+typeset -ga ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+  forward-subword
+  forward-shell-word
+)
+
 # Requested bindings.
 bindkey '^W' backward-kill-shell-word
 bindkey '^[w' kill-shell-word
