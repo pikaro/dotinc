@@ -1,32 +1,5 @@
 SCRIPT="$(basename "$0")"
 
-_log() {
-    stdbuf -o0 -e0 echo -e "[$(date +'%Y-%m-%d %H:%M:%S')] [${SCRIPT}] $*" >/dev/stderr
-}
-
-_warn() {
-    _log "[WARN] $*"
-}
-
-_error() {
-    _log "[ERROR] $*"
-}
-
-_info() {
-    _log "[INFO] $*"
-}
-
-_fatal() {
-    _log "[FATAL] $*"
-    exit 1
-}
-
-_debug() {
-    if [[ "${DEBUG}" == "true" ]]; then
-        _log "[DEBUG] $*"
-    fi
-}
-
 _COL_black=30
 _COL_red=31
 _COL_green=32
@@ -49,4 +22,31 @@ _color() {
     local TEXT="${2}"
     local COL_VAR="_COL_${COLOR// /_}"
     printf "\e[${!COL_VAR}m%s\e[0m" "${TEXT}"
+}
+
+_log() {
+    stdbuf -o0 -e0 echo -e "[$(_color bright_black "$(date +'%Y-%m-%d %H:%M:%S')")] [${SCRIPT}] $*" >/dev/stderr
+}
+
+_debug() {
+    if [[ "${DEBUG}" == "true" ]]; then
+        _log "[DEBUG] $*"
+    fi
+}
+
+_warn() {
+    _log "[$(_color yellow "WARN")] $*"
+}
+
+_error() {
+    _log "[$(_color red "ERROR")] $*"
+}
+
+_info() {
+    _log "[$(_color green "INFO")] $*"
+}
+
+_fatal() {
+    _log "[$(_color bright_magenta "FATAL")] $*"
+    exit 1
 }
